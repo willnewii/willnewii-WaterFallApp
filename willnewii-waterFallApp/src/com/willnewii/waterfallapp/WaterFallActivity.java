@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.willnewii.waterfall.WaterFallOption;
 import com.willnewii.waterfall.WaterFallView;
 import com.willnewii.waterfall.WaterFallView.OnScrollListener;
-import com.willnewii.waterfall.item.FlowView;
 import com.willnewii.waterfall.item.FlowViewHandler;
 import com.willnewii.waterfall.item.FlowViewLayout;
 
@@ -117,7 +116,7 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 		
 		item.setErrorImage(mWaterFallView.mOption.ErrorImage);
 		item.setViewHandler(mFlowViewHandler);
-		item.setItemListener(mItemListener2);
+		item.setItemListener(mItemListener);
 	
 		item.LoadImage(false);
 	}
@@ -149,18 +148,7 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 	public void onAutoScroll(int l, int t, int oldl, int oldt) {
 	}
 	
-	FlowView.onItemListener mItemListener = new FlowView.onItemListener() {
-		@Override
-		public void onItemLongClick(int id) {
-			ShowToast("id:" + id);
-		}
-		@Override
-		public void onItemClick(int id) {
-			mWaterFallView.deleteItem((FlowView)mWaterFallView.mFlowList.get(id));
-		}
-	};
-	
-	FlowViewLayout.onItemListener mItemListener2 = new FlowViewLayout.onItemListener() {
+	FlowViewLayout.onItemListener mItemListener = new FlowViewLayout.onItemListener() {
 		@Override
 		public void onItemLongClick(int id) {
 			ShowToast("id:" + id);

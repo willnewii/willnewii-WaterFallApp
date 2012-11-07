@@ -233,9 +233,13 @@ public class FlowViewLayout extends RelativeLayout implements View.OnClickListen
 							ViewGroup.LayoutParams lp = getLayoutParams();
 							int layoutHeight = (height * getItemWidth()) / width;// 调整高度
 							if (lp == null) {
-								lp = new LayoutParams(getItemWidth(), layoutHeight);
+								//原来的设置会出现不全宽的问题.  由于已经限定了该列的宽度,那么可以直接使用FILL_PARENT,更好维护.
+								//lp = new LayoutParams(getItemWidth(), layoutHeight);
+								lp = new LayoutParams(LayoutParams.FILL_PARENT, layoutHeight);
 							}
 							setLayoutParams(lp);
+							
+							//getmImageView().setLayoutParams(new android.widget.LinearLayout.LayoutParams(LayoutParams.FILL_PARENT , LayoutParams.FILL_PARENT));
 
 							getmImageView().setImageBitmap(bitmap);
 							Handler h = getViewHandler();
