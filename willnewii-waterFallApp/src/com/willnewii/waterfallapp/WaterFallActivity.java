@@ -106,7 +106,6 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 	 * @param position
 	 */
 	private void AddImageLayout(SimpleObject mSimple, int id) {
-		mSimple.setContent("ID 为:" + id);
 		FlowViewLayout item = new FlowViewLayout(this , mSimple.getContent());
 		//唯一标识.
 		item.setId(id);

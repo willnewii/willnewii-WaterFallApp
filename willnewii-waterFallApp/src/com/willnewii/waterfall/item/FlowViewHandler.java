@@ -31,7 +31,7 @@ public class FlowViewHandler extends Handler {
 			WaterFallView.Debug("width->"+msg.arg1);
 			int height = msg.arg2;
 
-			mWaterFallView.addItem(mFlowView, height);
+			//mWaterFallView.addItem(mFlowView, height);
 			/**
 			//将图片添加到最短列.
 			int columnIndex = WaterFallView.GetMinValue(mWaterFallView.mColumn_Heights);

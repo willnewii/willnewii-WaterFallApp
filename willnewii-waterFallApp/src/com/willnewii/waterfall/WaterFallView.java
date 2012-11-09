@@ -187,42 +187,31 @@ public class WaterFallView extends ScrollView {
 	 * @param imageHeight
 	 * @param imageWidth
 	 */
-	public void addItem(FlowView mFlowView , int imageHeight , int imageWidth){
+	public void addItem(FlowViewLayout mFlowView , int imageHeight , int imageWidth){
 		ViewGroup.LayoutParams mLayoutParam = mFlowView.getLayoutParams() ;
 		
 		int layoutHeight = (imageHeight * mFlowView.getItemWidth()) / imageWidth;// 调整高度
 		if (mLayoutParam == null) {
 			mLayoutParam = new LayoutParams(mFlowView.getItemWidth(), layoutHeight);
 		}
+		/**
+		mLayoutParam = new LayoutParams(mFlowView.getItemWidth(), layoutHeight);
+		mLayoutParam.setMargins(0, 2, 0, 2);
+		item.setLayoutParams(mLp);
+		item.setBackgroundResource(R.drawable.background_corners);
+		item.setPadding(1, 1, 1, 1);
+		*/
+		
 		setLayoutParams(mLayoutParam);
 		
 		addItem(mFlowView, layoutHeight);
 	}
 	
 	/**
-	 * 添加Item,需要知道图片的高度,才能正确加入.
+	 * 宽高未知,加载模式.
 	 * @param mFlowView
 	 * @param height
 	 */
-	public void addItem(FlowView mFlowView , int height){
-		//将图片添加到最短列.
-		int columnIndex = GetMinValue(this.mColumn_Heights);
-
-		//添加布局.
-		this.mColumnLayouts.get(columnIndex).addView(mFlowView);
-		//更新该列的高度.
-		this.mColumn_Heights[columnIndex] += height;
-		//更新该列计数.
-		this.lineIndex[columnIndex]++;
-		//设置列和行
-		mFlowView.setColumnIndex(columnIndex);
-		mFlowView.setRowIndex(lineIndex[columnIndex]);
-		
-		this.mFlowList.put(mFlowView.getId(), mFlowView);
-		this.pin_mark[columnIndex].put(this.lineIndex[columnIndex],this.mColumn_Heights[columnIndex]);
-		this.bottomIndex[columnIndex] = this.lineIndex[columnIndex];
-	}
-	
 	public void addItem(FlowViewLayout mFlowView , int height){
 		//将图片添加到最短列.
 		int columnIndex = GetMinValue(this.mColumn_Heights);
