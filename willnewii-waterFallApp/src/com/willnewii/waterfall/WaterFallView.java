@@ -213,6 +213,7 @@ public class WaterFallView extends ScrollView {
 	 * @param height
 	 */
 	public void addItem(FlowViewLayout mFlowView , int height){
+		
 		//将图片添加到最短列.
 		int columnIndex = GetMinValue(this.mColumn_Heights);
 

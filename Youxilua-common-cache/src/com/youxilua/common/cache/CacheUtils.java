@@ -33,7 +33,6 @@ public class CacheUtils {
 
 	/**
 	 * 检查提供的路径有多少可用的空间
-	 * 
 	 * @param path
 	 * @return
 	 */
@@ -43,7 +42,7 @@ public class CacheUtils {
 			Debug("2.3->"+ path.getUsableSpace());
 			return path.getUsableSpace();
 		}
-		Debug("2.1->"+ path.getUsableSpace());
+		//Debug("2.1->"+ path.getUsableSpace());
 		final StatFs stats = new StatFs(path.getPath());
 		return (long) stats.getBlockSize() * (long) stats.getAvailableBlocks();
 	}
@@ -51,7 +50,6 @@ public class CacheUtils {
 	/**
 	 * Check if external storage is built-in or removable. 2.3 以后的手机可以区分
 	 * 内部大容量存储器 和 外部 内部为不可移除这样更保证我们程序缓存的稳定性
-	 * 
 	 * 注意! 2.3 以前没这个特性...蛋疼..
 	 * 
 	 * @return True if external storage is removable (like an SD card), false
@@ -78,7 +76,6 @@ public class CacheUtils {
 
 	/**
 	 * 获得程序在sd开上的cahce目录
-	 * 
 	 * @param context
 	 *            The context to use
 	 * @return The external cache dir
@@ -90,13 +87,10 @@ public class CacheUtils {
 			Debug("dir->" + context.getExternalCacheDir());
 			return context.getExternalCacheDir();
 		}
-
 		// Before Froyo we need to construct the external cache dir ourselves
 		// 2.2以前我们需要自己构造
-		final String cacheDir = "/Android/data/" + context.getPackageName()
-				+ "/cache/";
-		return new File(Environment.getExternalStorageDirectory().getPath()
-				+ cacheDir);
+		final String cacheDir = "/Android/data/" + context.getPackageName()+ "/cache/";
+		return new File(Environment.getExternalStorageDirectory().getPath() + cacheDir);
 	}
 	
 	/**

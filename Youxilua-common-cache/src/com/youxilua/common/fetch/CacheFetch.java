@@ -18,21 +18,19 @@ import com.youxilua.common.cache.DiskLruCache;
 public class CacheFetch {
 	/**
 	 * 下载图片并且加入进 lru 缓存里面
-	 * 
 	 * @param context
 	 * @param urlString
 	 * @return
 	 */
 	public static File dowanLoadBitmap(Context context, String urlString) {
 		//创建缓存图片保存目录,默认为内置
-		final File cacheDir = DiskLruCache.getDiskCacheDir(context,
-				CacheUtils.HTTP_CACHE_DIR);
-		final DiskLruCache cache = DiskLruCache.openCache(context, cacheDir,
-				CacheUtils.HTTP_CACHE_SIZE);
+		final File cacheDir = DiskLruCache.getDiskCacheDir(context,CacheUtils.HTTP_CACHE_DIR);
+		
+		final DiskLruCache cache = DiskLruCache.openCache(context, cacheDir,CacheUtils.HTTP_CACHE_SIZE);
+		
 		final File cacheFile = new File(cache.createFilePath(urlString));
 		if (cache.containsKey(urlString)) {
-				CacheUtils.Debug(cacheFile.toString()+ "downloadBitmap - found in http cache - "
-						+ urlString);
+				CacheUtils.Debug(cacheFile.toString()+ "downloadBitmap - found in http cache - " + urlString);
 			return cacheFile;
 		}
 		

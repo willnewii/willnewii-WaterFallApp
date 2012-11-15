@@ -173,8 +173,9 @@ public class FlowView extends ImageView implements View.OnClickListener,
 		}
 
 		public void run() {
-			File cacheFile = CacheFetch.dowanLoadBitmap(getContext(),getFilePath());
 			try {
+				//SD卡不能用时,返回为空.
+				File cacheFile = CacheFetch.dowanLoadBitmap(getContext(),getFilePath());
 				bitmap = BitmapFactory.decodeFile(cacheFile.getPath());
 			} catch (Exception e) {
 				bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);

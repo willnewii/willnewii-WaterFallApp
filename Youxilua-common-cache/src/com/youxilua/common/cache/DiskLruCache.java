@@ -66,17 +66,13 @@ public class DiskLruCache {
      */
     public static DiskLruCache openCache(Context context, File cacheDir, long maxByteSize) {
         if (!cacheDir.exists()) {
-        	//2.3以后才用
-         //   cacheDir.mkdir();
-        	//2.3 以前强制创建
             cacheDir.mkdirs();
         }
-
-        if (cacheDir.isDirectory() && cacheDir.canWrite()
-                && CacheUtils.getUsableSpace(cacheDir) > maxByteSize) {
+        
+        //检测是否是目录/是否刻可读/可用空间是否够用.
+        if (cacheDir.isDirectory() && cacheDir.canWrite() && CacheUtils.getUsableSpace(cacheDir) > maxByteSize) {
             return new DiskLruCache(cacheDir, maxByteSize);
         }
-
         return null;
     }
 	

@@ -206,8 +206,9 @@ public class FlowViewLayout extends RelativeLayout implements View.OnClickListen
 		}
 
 		public void run() {
-			File cacheFile = CacheFetch.dowanLoadBitmap(getContext(),getFilePath());
 			try {
+				//SD卡不可用,显示默认图片.
+				File cacheFile = CacheFetch.dowanLoadBitmap(getContext(),getFilePath());
 				bitmap = BitmapFactory.decodeFile(cacheFile.getPath());
 			} catch (Exception e) {
 				bitmap = BitmapFactory.decodeResource(getResources(), ErrorImage);

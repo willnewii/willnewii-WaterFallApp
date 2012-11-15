@@ -5,13 +5,21 @@
   android:id="@+id/waterfall_scroll"
   android:scrollbars="vertical"
      >
-
-    <LinearLayout
-        android:id="@+id/waterfall_container"
-        android:layout_width="fill_parent"
+	<LinearLayout   android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@android:color/white" 
-        >
-    </LinearLayout>
+        android:orientation="vertical">
+        <!-- 可以做广告布局. -->
+        <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="0dp"
+	        android:background="#CCC"/>
+	    <LinearLayout
+	        android:id="@+id/waterfall_container"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:background="@android:color/white" 
+	        />
+	</LinearLayout>
+
 
 </com.willnewii.waterfall.WaterFallView>
