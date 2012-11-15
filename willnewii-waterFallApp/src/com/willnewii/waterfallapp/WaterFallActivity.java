@@ -33,7 +33,6 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.waterfall_display);
-		
 		initLayout();
 	}
 
@@ -76,8 +75,8 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 						for (int i = 0; i < PageSize ; i++) {
 							Random rand = new Random();
 							int r = rand.nextInt(ImageMock.imageThumbUrls.length);
-							
-							mSimples.add(new SimpleObject(ImageMock.imageThumbUrls[r], "第" + i));
+							//
+							mSimples.add(new SimpleObject(ImageMock.imageThumbUrls[r],"第" + i ));
 						}
 						AddItemToContainer(mSimples);
 						mWaterFallView.State = WaterFallView.State_OK;

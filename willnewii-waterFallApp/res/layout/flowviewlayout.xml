@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+android:background="@drawable/background_corners"
+android:padding="1dp"
+ -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
@@ -6,7 +10,7 @@
         android:id="@+id/flowview_image"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"/>
 	<TextView 
 	    android:id="@+id/flowview_text"
         android:layout_width="fill_parent"
@@ -15,6 +19,6 @@
         android:singleLine="true"
         android:background="#B0000000"
         android:visibility="gone"
-        android:layout_alignParentBottom="true" 
+        android:layout_alignBottom="@id/flowview_image" 
         android:paddingLeft="5dp"/>
 </RelativeLayout>

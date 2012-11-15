@@ -216,7 +216,9 @@ public class WaterFallView extends ScrollView {
 		
 		//将图片添加到最短列.
 		int columnIndex = GetMinValue(this.mColumn_Heights);
-
+//		int columnIndex = GetOrderValue(this.mColumnLayouts);
+		Log.i(TAG, "columnIndex:" + columnIndex);
+		
 		//添加布局.
 		this.mColumnLayouts.get(columnIndex).addView(mFlowView);
 		//更新该列的高度.
@@ -276,7 +278,7 @@ public class WaterFallView extends ScrollView {
 		for (int i = rowIndex; i < pin_mark[columnIndex].size(); i++) {
 			this.pin_mark[columnIndex].put(i,this.pin_mark[columnIndex].get(i + 1) - height);
 			this.pin_mark[columnIndex].removeAt(i + 1);
-			((FlowView) this.mColumnLayouts.get(columnIndex).getChildAt(i)).setRowIndex(i);
+			((FlowViewLayout) this.mColumnLayouts.get(columnIndex).getChildAt(i)).setRowIndex(i);
 		}
 
 		lineIndex[columnIndex]--;
@@ -316,6 +318,22 @@ public class WaterFallView extends ScrollView {
 		int length = array.length;
 		for (int i = 0; i < length; ++i) {
 			if (array[i] < array[m]) {
+				m = i;
+			}
+		}
+		return m;
+	}
+	
+	/**
+	 * 按顺序加载
+	 * @param array
+	 * @return
+	 */
+	public static int GetOrderValue(ArrayList<LinearLayout> array) {
+		int m = 0;
+		int length = array.size();
+		for (int i = 0; i < length; ++i) {
+			if (array.get(i).getChildCount() < array.get(m).getChildCount()) {
 				m = i;
 			}
 		}
