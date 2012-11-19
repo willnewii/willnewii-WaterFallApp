@@ -40,7 +40,7 @@ public class WaterFallView extends ScrollView {
 	 * 和数据源数量有出入.
 	 * public HashMap<Integer, FlowView> iviews;
 	 */
-	public SparseArray<View> mFlowList;
+	public SparseArray<FlowViewLayout> mFlowList;
 	
 	/** 触发onTop/onBottom/onScroll  */
 	public Handler mWaterFallHandler;
@@ -85,7 +85,7 @@ public class WaterFallView extends ScrollView {
 	private void init() {
 		this.setOnTouchListener(onTouchListener);
 		mColumn_Heights = new int[mOption.Column_Count];
-		mFlowList = new SparseArray<View>();
+		mFlowList = new SparseArray<FlowViewLayout>();
 		pin_mark = new SparseIntArray[mOption.Column_Count];
 		this.lineIndex = new int[mOption.Column_Count];
 		this.bottomIndex = new int[mOption.Column_Count];
@@ -119,6 +119,31 @@ public class WaterFallView extends ScrollView {
 		}
 	}
 
+	/**
+	 * 重置方法
+	 */
+	private void reset(){
+		mColumn_Heights = new int[mOption.Column_Count];
+		for(int i = 0 ; i < mFlowList.size() ; i++){
+			mFlowList.valueAt(i).recycle();
+		}
+		mFlowList = new SparseArray<FlowViewLayout>();
+		//pins = new SparseArray<String>();
+		pin_mark = new SparseIntArray[mOption.Column_Count];
+		this.lineIndex = new int[mOption.Column_Count];
+		this.bottomIndex = new int[mOption.Column_Count];
+		this.topIndex = new int[mOption.Column_Count];
+		for (int i = 0; i < mOption.Column_Count; i++) {
+			lineIndex[i] = -1;
+			bottomIndex[i] = -1;
+		}
+		int i = 0 ;
+		for (LinearLayout layout : mColumnLayouts) {
+			layout.removeAllViews();
+			pin_mark[i++] = new SparseIntArray();
+		}
+	}
+	
 	/**
 	 * 初始化操作.
 	 * 获得参考的View，主要是为了获得它的MeasuredHeight，然后和滚动条的ScrollY+getHeight作比较。
