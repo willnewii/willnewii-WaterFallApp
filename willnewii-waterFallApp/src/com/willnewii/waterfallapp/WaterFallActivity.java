@@ -116,8 +116,8 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 							//
 							mSimples.add(new SimpleObject(ImageMock.imageThumbUrls[r],"第" + i ));
 						}
-						AddItemToContainer(mSimples);
 						mWaterFallView.State = WaterFallView.State_OK;
+						AddItemToContainer(mSimples);
 					}
 				}).start();
 	}

@@ -5,7 +5,9 @@ android:padding="1dp"
  -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:background="@drawable/background_corners"
+android:padding="1dp">
     <ImageView
         android:id="@+id/flowview_image"
         android:layout_width="fill_parent"

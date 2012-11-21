@@ -222,7 +222,7 @@ public class WaterFallView extends ScrollView {
 		
 		int layoutHeight = (imageHeight * mFlowView.getItemWidth()) / imageWidth;// 调整高度
 		if (mLayoutParam == null) {
-			mLayoutParam = new LayoutParams(mFlowView.getItemWidth(), layoutHeight);
+			mLayoutParam = new LayoutParams(LayoutParams.MATCH_PARENT, layoutHeight);
 		}
 		/**
 		mLayoutParam = new LayoutParams(mFlowView.getItemWidth(), layoutHeight);
@@ -231,8 +231,7 @@ public class WaterFallView extends ScrollView {
 		item.setBackgroundResource(R.drawable.background_corners);
 		item.setPadding(1, 1, 1, 1);
 		*/
-		
-		setLayoutParams(mLayoutParam);
+		mFlowView.setLayoutParams(mLayoutParam);
 		
 		addItem(mFlowView, layoutHeight);
 	}

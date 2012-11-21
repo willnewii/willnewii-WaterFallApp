@@ -54,7 +54,6 @@ public class FlowViewHandler extends Handler {
 			break;
 		case HANDLER_FLOWVIEWLAYOUT:
 			FlowViewLayout mFlowViewLayout = (FlowViewLayout) msg.obj;
-			WaterFallView.Debug("width->"+msg.arg1);
 //			int height = msg.arg2;
 			mWaterFallView.addItem(mFlowViewLayout, (int)msg.arg2);
 			break;
