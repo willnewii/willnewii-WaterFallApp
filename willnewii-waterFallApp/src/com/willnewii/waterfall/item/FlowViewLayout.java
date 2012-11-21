@@ -80,7 +80,6 @@ public class FlowViewLayout extends RelativeLayout implements View.OnClickListen
 	private void Init(String content) {
 
 		RelativeLayout mRelativeLayout =  (RelativeLayout)LayoutInflater.from(context).inflate(R.layout.flowviewlayout, this, true);  
-		
 		mImageView = (ImageView)mRelativeLayout.findViewById(R.id.flowview_image);
 		
 		if(!TextUtils.isEmpty(content)){
@@ -217,9 +216,7 @@ public class FlowViewLayout extends RelativeLayout implements View.OnClickListen
 				bitmap = BitmapFactory.decodeResource(getResources(), ErrorImage);
 			// if (bitmap != null) {
 
-			// 此处不能直接更新UI，否则会发生异常：
-			// CalledFromWrongThreadException: Only the original thread that
-			// created a view hierarchy can touch its views.
+			// 此处不能直接更新UI，否则会发生异常：CalledFromWrongThreadException: Only the original thread that. created a view hierarchy can touch its views.
 			// 也可以使用Handler或者Looper发送Message解决这个问题
 
 			((Activity) context).runOnUiThread(new Runnable() {
