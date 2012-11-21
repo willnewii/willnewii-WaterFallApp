@@ -1,6 +1,7 @@
 package com.willnewii.waterfall.item;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
 
 import android.app.Activity;
 import android.content.Context;
@@ -39,7 +40,6 @@ public class FlowViewLayout extends RelativeLayout implements View.OnClickListen
 	
 	private ImageView mImageView ;
 	private TextView mTextView ;
-	
 	
 	public ImageView getmImageView() {
 		return mImageView;
@@ -117,11 +117,65 @@ public class FlowViewLayout extends RelativeLayout implements View.OnClickListen
     }
 
 	/**
-	 * 加载图片
-	 * 重载图片
+	 * 加载/重载图片
 	 */
 	public void LoadImage(boolean isReload) {
 		new LoadImageThread(isReload).start();
+	}
+	
+	/**
+	 * 加载/重载图片
+	 * 试用线程池
+	 */
+	public void LoadImage(ExecutorService mExecutorService  , final boolean isReload) {
+		mExecutorService.submit(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					//SD卡不可用,显示默认图片.
+					File cacheFile = CacheFetch.dowanLoadBitmap(getContext(),getFilePath());
+					bitmap = BitmapFactory.decodeFile(cacheFile.getPath());
+				} catch (Exception e) {
+					bitmap = BitmapFactory.decodeResource(getResources(), ErrorImage);
+				}
+				if(bitmap == null)
+					bitmap = BitmapFactory.decodeResource(getResources(), ErrorImage);
+				// if (bitmap != null) {
+
+				// 此处不能直接更新UI，否则会发生异常：CalledFromWrongThreadException: Only the original thread that. created a view hierarchy can touch its views.
+				// 也可以使用Handler或者Looper发送Message解决这个问题
+
+				((Activity) context).runOnUiThread(new Runnable() {
+					public void run() {
+						if (bitmap != null) {// 此处在线程过多时可能为null
+							if(isReload){//重载.
+								getmImageView().setImageBitmap(bitmap);
+							}else{
+								int width = bitmap.getWidth();// 获取真实宽高
+								int height = bitmap.getHeight();
+
+								ViewGroup.LayoutParams lp = getLayoutParams();
+								int layoutHeight = (height * getItemWidth()) / width;// 调整高度
+								if (lp == null) {
+									//原来的设置会出现不全宽的问题.  由于已经限定了该列的宽度,那么可以直接使用FILL_PARENT,更好维护.
+									//lp = new LayoutParams(getItemWidth(), layoutHeight);
+									lp = new LayoutParams(LayoutParams.FILL_PARENT, layoutHeight);
+								}
+								setLayoutParams(lp);
+								
+								//getmImageView().setLayoutParams(new android.widget.LinearLayout.LayoutParams(LayoutParams.FILL_PARENT , LayoutParams.FILL_PARENT));
+
+								getmImageView().setImageBitmap(bitmap);
+								Handler h = getViewHandler();
+								Message m = h.obtainMessage(FlowViewHandler.HANDLER_FLOWVIEWLAYOUT,width, layoutHeight, FlowViewLayout.this);
+								h.sendMessage(m);
+							}
+						}
+					}
+				});
+				
+			}
+		});
 	}
 
 

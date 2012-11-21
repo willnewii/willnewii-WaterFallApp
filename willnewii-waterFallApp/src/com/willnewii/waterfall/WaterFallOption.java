@@ -44,6 +44,8 @@ public class WaterFallOption {
 	//用于handle 通讯的常量
 	//消息发送的延迟时间
 	public int message_delay = 200;
+	//线程池大小
+	public int Thread_Count = 5 ;
 
 	public WaterFallOption(int itemWidth,int columnCount){
 		this.Column_Width = itemWidth;

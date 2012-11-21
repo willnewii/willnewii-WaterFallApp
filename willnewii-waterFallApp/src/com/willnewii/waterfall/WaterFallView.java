@@ -1,6 +1,8 @@
 package com.willnewii.waterfall;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import android.content.Context;
 import android.os.Handler;
@@ -62,7 +64,8 @@ public class WaterFallView extends ScrollView {
 	// public SparseArray<Integer> [] pin_mark;
 	public SparseIntArray[] pin_mark;
 
-
+	public ExecutorService mExecutorService ;
+	
 	public WaterFallView(Context context) {
 		super(context);
 	}
@@ -83,6 +86,8 @@ public class WaterFallView extends ScrollView {
 	}
 
 	private void init() {
+
+		this.mExecutorService = Executors.newFixedThreadPool(mOption.Thread_Count);
 		this.setOnTouchListener(onTouchListener);
 		mColumn_Heights = new int[mOption.Column_Count];
 		mFlowList = new SparseArray<FlowViewLayout>();
@@ -120,9 +125,9 @@ public class WaterFallView extends ScrollView {
 	}
 
 	/**
-	 * 重置方法
+	 * 重置
 	 */
-	private void reset(){
+	public void resat(){
 		mColumn_Heights = new int[mOption.Column_Count];
 		for(int i = 0 ; i < mFlowList.size() ; i++){
 			mFlowList.valueAt(i).recycle();

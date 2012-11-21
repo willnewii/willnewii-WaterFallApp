@@ -50,7 +50,7 @@ public class WaterFallUtils {
 				}
 
 				if (mWaterFallView.pin_mark[k].get(Math.max(mWaterFallView.topIndex[k] - 1,0)) >= t - 2 * scrollHeight) {
-					((FlowViewLayout) localLinearLayout.getChildAt(Math.max(-1+ mWaterFallView.topIndex[k], 0))).LoadImage(true);
+					((FlowViewLayout) localLinearLayout.getChildAt(Math.max(-1+ mWaterFallView.topIndex[k], 0))).LoadImage(mWaterFallView.mExecutorService , true);
 					mWaterFallView.topIndex[k] = Math.max(mWaterFallView.topIndex[k] - 1, 0);
 				}
 			}
@@ -66,7 +66,7 @@ public class WaterFallUtils {
 					
 					((FlowViewLayout) mWaterFallView.mColumnLayouts.get(k).getChildAt(
 							Math.min(1 + mWaterFallView.bottomIndex[k],
-									mWaterFallView.lineIndex[k]))).LoadImage(true);
+									mWaterFallView.lineIndex[k]))).LoadImage(mWaterFallView.mExecutorService , true);
 
 					mWaterFallView.bottomIndex[k] = Math.min(
 							1 + mWaterFallView.bottomIndex[k], mWaterFallView.lineIndex[k]);

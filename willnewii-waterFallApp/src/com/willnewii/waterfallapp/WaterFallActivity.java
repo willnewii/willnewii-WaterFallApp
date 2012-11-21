@@ -11,6 +11,9 @@ import android.view.Display;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.willnewii.pulltorefresh.PullToRefreshBase;
+import com.willnewii.pulltorefresh.PullToRefreshBase.OnRefreshListener;
+import com.willnewii.pulltorefresh.PullToRefreshWaterFall;
 import com.willnewii.waterfall.WaterFallOption;
 import com.willnewii.waterfall.WaterFallView;
 import com.willnewii.waterfall.WaterFallView.OnScrollListener;
@@ -32,11 +35,12 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.waterfall_display);
-		initLayout();
+		
+		initLayout2();
 	}
 
 	private void initLayout() {
+		setContentView(R.layout.waterfall_display);
 		Display display = getWindowManager().getDefaultDisplay();
 		
 		//所有布局在设置间隙的时候都用了padding ,所以在计算宽度的时候,不需要考虑 间隙.
@@ -55,11 +59,45 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 		mWaterFallView.initWaterFall(mOption , waterfall_container);
 
 		mFlowViewHandler = new FlowViewHandler(mWaterFallView);
-		onRefresh();
+		onLoadData();
+	}
+	
+	private void initLayout2() {
+		setContentView(R.layout.waterfall_pulltorefresh_display);
+		Display display = getWindowManager().getDefaultDisplay();
+		
+		//所有布局在设置间隙的时候都用了padding ,所以在计算宽度的时候,不需要考虑 间隙.
+		int item_width = display.getWidth() / Column_Count;
+		
+		//1 初始化waterfall 
+		PullToRefreshWaterFall mPullToRefreshFall = (PullToRefreshWaterFall) findViewById(R.id.waterfall_scroll);
+		mPullToRefreshFall.setOnRefreshListener(new OnRefreshListener<WaterFallView>() {
+			@Override
+			public void onRefresh(PullToRefreshBase<WaterFallView> refreshView) {
+				refreshView.onRefreshComplete();
+				mWaterFallView.resat();
+				onLoadData();
+			}
+		});
+		
+		
+		mWaterFallView = mPullToRefreshFall.getRefreshableView();
+		//2 初始化显示容器
+		LinearLayout waterfall_container = (LinearLayout) findViewById(R.id.waterfall_container);
+		//3,设置滚动监听
+		mWaterFallView.setOnScrollListener(this);
+		//4,实例一个设置
+		WaterFallOption mOption = new WaterFallOption(item_width, Column_Count);
+		
+		//5,初始化android瀑布流
+		mWaterFallView.initWaterFall(mOption , waterfall_container);
+
+		mFlowViewHandler = new FlowViewHandler(mWaterFallView);
+		onLoadData();
 	}
 	
 	//模拟加载.
-	private void onRefresh(){
+	private void onLoadData(){
 		mWaterFallView.State = WaterFallView.State_Running;
 		
 		new Thread(new Runnable() {
@@ -116,7 +154,7 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 		item.setViewHandler(mFlowViewHandler);
 		item.setItemListener(mItemListener);
 	
-		item.LoadImage(false);
+		item.LoadImage(mWaterFallView.mExecutorService , false);
 	}
 
 	@Override
@@ -124,7 +162,7 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 		Log.i(TAG, "onBottom");
 		if(mWaterFallView.State == WaterFallView.State_OK){
 			ShowToast("正在加载请稍后...");
-			onRefresh();
+			onLoadData();
 		}else{
 			ShowToast("已经在加载中...");
 		}
