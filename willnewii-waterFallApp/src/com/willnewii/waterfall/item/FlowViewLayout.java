@@ -176,6 +176,7 @@ public class FlowViewLayout extends RelativeLayout implements View.OnClickListen
 				
 			}
 		});
+		//new LoadImageThread(isReload);
 	}
 
 

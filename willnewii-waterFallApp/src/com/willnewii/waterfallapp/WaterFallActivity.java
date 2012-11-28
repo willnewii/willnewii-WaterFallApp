@@ -99,7 +99,6 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 	//模拟加载.
 	private void onLoadData(){
 		mWaterFallView.State = WaterFallView.State_Running;
-		
 		new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -132,7 +131,6 @@ public class WaterFallActivity extends Activity implements OnScrollListener {
 		int currentIndex = mWaterFallView.getSize();
 		//限制最大加载值.
 		int MaxPictureCount = mWaterFallView.mOption.MaxPictureCount;
-		
 		for (int i = currentIndex ,j = 0; j < mSimples.size() && i < MaxPictureCount; i++ , j++) {
 			AddImageLayout(mSimples.get(j) , i);
 		}
